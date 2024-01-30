@@ -9,6 +9,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var tripsRouter = require('./routes/trips');
+var cartsRouter = require('./routes/carts');
 
 var app = express();
 
@@ -18,9 +19,7 @@ const corsOptions = {
   origin: function (origin, callback) {
     // Remplacee 'allowedOrigins' avec vos différents URLs front pouvant accéder au Backend
     const allowedOrigins = [
-      'http://localhost:4000',
-      'http://localhost:4001',
-      'https://www.tablee.app',
+      'http://127.0.0.1:5500',
       'http://localhost:3000',
       'http://192.168.0.35:4001',
     ];
@@ -45,5 +44,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/trips', tripsRouter);
+app.use('/carts', cartsRouter);
 
 module.exports = app;

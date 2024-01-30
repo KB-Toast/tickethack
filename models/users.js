@@ -1,14 +1,12 @@
 const mongoose = require('mongoose');
 
-const userSchema = mongoose.Schema({
+const usersSchema = mongoose.Schema({
   firstname: String,
   lastname: String,
   email: String,
   password: String,
-  bookingTrips: [{ type: mongoose.Schema.Types.ObjectId, ref: 'trips' }], // link user to bookedtrips, in array form
-  cartTrips: [{ type: mongoose.Schema.Types.ObjectId, ref: 'trips' }], // link user to bookedtrips, in array form
 });
 
-const User = mongoose.model('users', userSchema);
+const User = mongoose.model('users', usersSchema);
 
 module.exports = User;

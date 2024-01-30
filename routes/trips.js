@@ -26,9 +26,29 @@ router.get('/all', (req, res) => {
   Trip.find().then((allTrips) => res.json({ result: true, allTrips }));
 });
 
+// READ, SEARCH FOR TRIP
+router.get('/search', (req, res) => {
+  Trip.find({
+    departure: req.body.departure,
+    arrival: req.body.arrival,
+    date: req.body.date,
+  }).then((trips) => {
+    console.log(trips);
+    res.json({ trips });
+  });
+});
+
 // TODO :
 // searchTraject :
 // findtraject based on departure, arrival and date
+// Todo : getTripById
+
+router.get('/search/:id', (req, res) => {
+  Trip.findById(req.params.id).then((trip) => {
+    console.log(trip);
+    res.json({ trip });
+  });
+});
 
 // UPDATE
 // not needed ?

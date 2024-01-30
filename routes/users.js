@@ -27,6 +27,7 @@ router.get('/all', (req, res) => {
 });
 
 // UPDATE
+/*
 router.put('/update', (req, res) => {
   const { email, firstname } = req.body;
 
@@ -37,28 +38,6 @@ router.put('/update', (req, res) => {
       User.updateOne({ email }, { firstname: firstname }).then(
         (userUpdated) => {
           return res.json({ result: true, updatedUser });
-        }
-      );
-    }
-  });
-});
-
-// ADD TRIP TO CART
-router.put('/cart/new', (req, res) => {
-  const { email, tripId } = req.body;
-
-  User.findOne({ email }).then((userFound) => {
-    if (!userFound) {
-      return res.json({ result: false, error: 'User not found' });
-    } else {
-      // get current user cartTrips
-      const newCartTrips = userFound.cartTrips;
-      newCartTrips.push(tripId);
-      console.log(newCartTrips);
-
-      User.updateOne({ email }, { cartTrips: newCartTrips }).then(
-        (userUpdated) => {
-          return res.json({ result: true, userUpdated });
         }
       );
     }
@@ -79,5 +58,6 @@ router.delete('/delete', (req, res) => {
     }
   });
 });
+*/
 
 module.exports = router;
