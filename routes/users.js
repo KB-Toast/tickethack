@@ -1,9 +1,90 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+const User = require('../models/users');
+
+const { checkBody } = require('../modules/checkBody'); // Require un module (if needed)
+
+// CRUD
+
+// CREATE
+router.post('/new', (req, res) => {
+  const { firstname, lastname, email, password } = req.body; // Désctructuration
+
+  const newUser = new User({
+    firstname,
+    lastname,
+    email,
+    password,
+    likes: [],
+    applicationStatus: {
+      // Respect du schéma
+      validated: false,
+      rejected: false,
+      pending: true,
+    },
+  });
+
+  newUser.save().then(() => res.json({ result: true }));
+});
+
+// READ
+router.get('/all', (req, res) => {
+  User.find().then((allUsers) => res.json({ result: true, allUsers }));
+});
+
+// UPDATE
+router.put('/update', (req, res) => {
+  const { email, firstname } = req.body;
+
+  User.findOne({ email }).then((userFound) => {
+    if (!userFound) {
+      return res.json({ result: false, error: 'User not found' });
+    } else {
+      User.updateOne({ email }, { firstname: firstname }).then(
+        (userUpdated) => {
+          return res.json({ result: true, updatedUser });
+        }
+      );
+    }
+  });
+});
+
+// ADD TRIP TO CART
+router.put('/cart/new', (req, res) => {
+  const { email, tripId } = req.body;
+
+  User.findOne({ email }).then((userFound) => {
+    if (!userFound) {
+      return res.json({ result: false, error: 'User not found' });
+    } else {
+      // get current user cartTrips
+      const newCartTrips = userFound.cartTrips;
+      newCartTrips.push(tripId);
+      console.log(newCartTrips);
+
+      User.updateOne({ email }, { cartTrips: newCartTrips }).then(
+        (userUpdated) => {
+          return res.json({ result: true, userUpdated });
+        }
+      );
+    }
+  });
+});
+
+// DELETE
+router.delete('/delete', (req, res) => {
+  const { email } = req.body;
+
+  User.findOne({ email }).then((userFound) => {
+    if (!userFound) {
+      return res.json({ result: false, error: 'User not found' });
+    } else {
+      User.deleteOne({ email }).then((userDeleted) => {
+        return res.json({ result: true, deletedUser });
+      });
+    }
+  });
 });
 
 module.exports = router;
