@@ -16,13 +16,6 @@ router.post('/new', (req, res) => {
     lastname,
     email,
     password,
-    likes: [],
-    applicationStatus: {
-      // Respect du schéma
-      validated: false,
-      rejected: false,
-      pending: true,
-    },
   });
 
   newUser.save().then(() => res.json({ result: true }));

@@ -1,9 +1,0 @@
-{
-    "departure":"Lyon",
-    "arrival":"Bruxelles",
-    "date":
-        {
-            "$date":"2024-01-30T09:05:29.646Z"
-        },
-    "price":76
-}

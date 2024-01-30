@@ -26,6 +26,10 @@ router.get('/all', (req, res) => {
   Trip.find().then((allTrips) => res.json({ result: true, allTrips }));
 });
 
+// TODO :
+// searchTraject :
+// findtraject based on departure, arrival and date
+
 // UPDATE
 // not needed ?
 /*
