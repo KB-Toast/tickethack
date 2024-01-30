@@ -26,7 +26,7 @@ router.post('/new', (req, res) => {
 
 // READ
 // get all items in cart for userId
-router.get('/getCart', (req, res) => {
+router.post('/getCart', (req, res) => {
   let userId;
   if (!req.body.userId || req.body.userId === undefined) {
     userId = '65b8f89debf5988b2efd772b';
@@ -41,7 +41,7 @@ router.get('/getCart', (req, res) => {
 });
 
 // get all items in booking for userId
-router.get('/getBooking', (req, res) => {
+router.post('/getBooking', (req, res) => {
   let userId;
   if (!req.body.userId || req.body.userId === undefined) {
     userId = '65b8f89debf5988b2efd772b';
@@ -49,8 +49,8 @@ router.get('/getBooking', (req, res) => {
   } else {
     userId = req.body.userId;
   }
-  Cart.find({ userId, paid: true }).then((userCarts) =>
-    res.json({ result: true, userCarts })
+  Cart.find({ userId, paid: true }).then((userBookings) =>
+    res.json({ result: true, userBookings })
   );
 });
 
