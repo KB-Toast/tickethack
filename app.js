@@ -18,7 +18,11 @@ const cors = require('cors'); // Installation de Cors
 const corsOptions = {
   origin: function (origin, callback) {
     // Remplacee 'allowedOrigins' avec vos différents URLs front pouvant accéder au Backend
-    const allowedOrigins = ['http://127.0.0.1:5500', 'http://localhost:3000'];
+    const allowedOrigins = [
+      'http://127.0.0.1:5500',
+      'http://localhost:3000',
+      'https://tickethack-front-fawn.vercel.app/',
+    ];
     if (allowedOrigins.includes(origin) || !origin) {
       callback(null, true);
     } else {
