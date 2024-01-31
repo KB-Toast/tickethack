@@ -23,7 +23,7 @@ router.get('/getCart', (req, res) => {
   );
 });
 
-// get all items in booking for userId
+// get all items in booking
 router.get('/getBooking', (req, res) => {
   Cart.find({ paid: true }).then((userBookings) =>
     res.json({ result: true, userBookings })

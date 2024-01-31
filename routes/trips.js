@@ -3,8 +3,6 @@ var router = express.Router();
 
 const Trip = require('../models/trips');
 
-// const { checkBody } = require('../modules/checkBody'); // Require un module (if needed)
-
 // CRUD
 
 // CREATE
@@ -33,8 +31,8 @@ router.post('/search', (req, res) => {
   // 86400000 = 1 jour en millisecondes
   nextDayTimestamp += 86400000;
   Trip.find({
-    departure: req.body.departure,
-    arrival: req.body.arrival,
+    departure: { $regex: new RegExp(req.body.departure, 'i') },
+    arrival: { $regex: new RegExp(req.body.arrival, 'i') },
     date: { $gte: req.body.date, $lte: nextDayTimestamp },
   }).then((trips) => {
     res.json({ trips });
@@ -48,43 +46,5 @@ router.get('/search/:id', (req, res) => {
     res.json({ trip });
   });
 });
-
-// UPDATE
-// not needed ?
-/*
-router.put('/update', (req, res) => {
-  const { email, firstname } = req.body;
-
-  Trip.findOne({ email }).then((tripFound) => {
-    if (!tripFound) {
-      return res.json({ result: false, error: 'trip not found' });
-    } else {
-      Trip.updateOne({ email }, { firstname: firstname }).then(
-        (tripUpdated) => {
-          return res.json({ result: true, updatedTrip });
-        }
-      );
-    }
-  });
-});
-*/
-
-// DELETE
-// not needed ?
-/*
-router.delete('/delete', (req, res) => {
-  const { email } = req.body;
-
-  Trip.findOne({ email }).then((tripFound) => {
-    if (!tripFound) {
-      return res.json({ result: false, error: 'booking not found' });
-    } else {
-      Trip.deleteOne({ email }).then((tripDeleted) => {
-        return res.json({ result: true, deletedTrip });
-      });
-    }
-  });
-});
-*/
 
 module.exports = router;
