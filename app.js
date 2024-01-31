@@ -46,4 +46,6 @@ app.use('/users', usersRouter);
 app.use('/trips', tripsRouter);
 app.use('/carts', cartsRouter);
 
+console.log('test');
+
 module.exports = app;
